@@ -9,17 +9,19 @@ Rack Up Points: Every alien you destroy adds to your score. The more you elimina
 Challenging Levels: As you progress, the game gets tougher with faster and more aggressive alien waves.
 Immersive Sound Experience: Enjoy engaging sound effects and background music that bring the game to life.
 Start Menu: Begin your adventure or exit the game from the start menu.
-
 Installation
 Clone this repository.
 
-Install the necessary dependencies with pygame.
+Install the necessary dependencies with Pygame:
 
+bash
+Copy code
+pip install pygame
 Launch the game with:
 
 bash
+Copy code
 python space_invaders.py
-
 How to Play
 Move: Use the arrow keys to steer your spaceship left or right.
 Shoot: Press the spacebar to fire bullets at the invading aliens.
