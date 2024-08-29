@@ -35,7 +35,7 @@ enemyY_change = []
 num_of_enemies = 6
 for i in range(num_of_enemies):
     enemyimg.append(pygame.image.load("images/alien.png"))
-    enemyX.append(random.randint(0, 735)) # Updated to prevent enemy from spawning out of bounds
+    enemyX.append(random.randint(0, 735))  # Updated to prevent enemy from spawning out of bounds
     enemyY.append(random.randint(50, 150))
     enemyX_change.append(4)
     enemyY_change.append(40)
@@ -65,10 +65,10 @@ def showscore(x, y):
     score = font.render("Score: " + str(score_value), True, (255, 255, 255))
     screen.blit(score, (x, y))
 
-def game_over_text(x, y):
+def game_over_text():
     over_text = over_font.render("<3GAME OVER<3", True, (255, 255, 255))
-    screen.blit(over_text, (x, y))    
-    
+    screen.blit(over_text, (100, 150))    
+
 def player(x, y):
     screen.blit(playerimg, (x, y))
     
@@ -84,9 +84,25 @@ def iscollision(enemyX, enemyY, bulletX, bulletY):
     distance = math.sqrt((math.pow(enemyX - bulletX, 2)) + math.pow(enemyY - bulletY, 2))
     return distance < 27
 
+# Initializing level
+level = 1
+
+def show_level(x, y):
+    level_text = font.render("Level: " + str(level), True, (252, 123, 84))
+    screen.blit(level_text, (x, y))
+
+def update_level():
+    global level
+    if score_value > 0 and score_value % 10 == 0:
+        new_level = score_value // 10 + 1
+        if new_level != level:
+            level = new_level
+            for i in range(num_of_enemies):
+                enemyX_change[i] = 4 + (level - 1) * 2
+
 def show_start_menu():
     menu_text = start_font.render("PRESS SPACE TO START", True, (255, 255, 255))
-    screen.blit(menu_text, (10, 250))
+    screen.blit(menu_text, (10, 300))  # Adjusted to position the start menu text at (100, 250)
     pygame.display.update()
     waiting = True
     while waiting:
@@ -138,6 +154,9 @@ while True:
     elif playerX >= 736:
         playerX = 736
 
+    # Update the level based on the score
+    update_level()
+
     # Enemy movement
     for i in range(num_of_enemies):
 
@@ -145,15 +164,23 @@ while True:
         if enemyY[i] > 440:
             for j in range(num_of_enemies):
                 enemyY[j] = 2000
-            game_over_text(120, 250)
-            break
-        
+            game_over_text()  # Display game over text in the center
+            pygame.display.update()
+            pygame.time.wait(2000)
+            show_start_menu()
+            score_value = 0  # Reset score
+            level = 1  # Reset level
+            for j in range(num_of_enemies):
+                enemyX[j] = random.randint(0, 735)
+                enemyY[j] = random.randint(50, 150)
+            continue
+
         enemyX[i] += enemyX_change[i]
         if enemyX[i] <= 0:
-            enemyX_change[i] = 4
+            enemyX_change[i] = 4 + (level - 1) * 2
             enemyY[i] += enemyY_change[i]
         elif enemyX[i] >= 736:
-            enemyX_change[i] = -4
+            enemyX_change[i] = -4 - (level - 1) * 2
             enemyY[i] += enemyY_change[i]
 
         # Collision
@@ -179,4 +206,5 @@ while True:
 
     player(playerX, playerY)
     showscore(textX, textY)
+    show_level(650, textY)  # Show the current level on the screen
     pygame.display.update()
