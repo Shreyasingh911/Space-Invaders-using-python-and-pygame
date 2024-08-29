@@ -59,14 +59,16 @@ Avoid letting the enemies reach the bottom of the screen to prevent game over.
 Level Progression
 
 As your score increases, the game level progresses and enemies move faster.
-Screenshots
+
 
 A screenshot of the game in action.
+C:\Users\SHREYA\OneDrive\Desktop\graphics\images\screenshot_pygame.png
 
-Credits
-Development: Shreya Singh
-Background Music: Provided by Free Music Archive
-Sound Effects: Available from Freesound
+##Credits
+**link**
+https://www.youtube.com/watch?v=FfWpgLFMI7w
+https://www.freepik.com/free-photos-vectors/background
+www.flaticon.com
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
